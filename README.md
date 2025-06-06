@@ -17,6 +17,9 @@ The model is trained on the [New Plant Diseases Dataset](https://www.kaggle.com/
 The CNN-based model is built using TensorFlow/Keras and trained to classify input leaf images into one of the 38 categories. 
 It uses techniques such as data augmentation, dropout, and early stopping to improve performance and reduce overfitting.
 
+## Model Live Demo
+https://mainpy-yvip3qmpcr5atacyrzakxp.streamlit.app/
+
 
 🔬 Train_plant_disease.ipynb Analysis Summary
 📊 Final Training Cell Output:
