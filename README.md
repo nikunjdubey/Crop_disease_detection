@@ -1,50 +1,114 @@
-# 🌿 Plant Disease Detection using CNN
+## 🔍 Model Training & Analysis
 
-This repository contains a deep learning-based image classification model to detect plant diseases using Convolutional Neural Networks (CNN).
-The model is trained on the [New Plant Diseases Dataset](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset), which consists of more than 87,000 images of healthy and diseased plant leaves.
+This section provides a detailed breakdown of the training process, model architecture, and evaluation for the Plant Disease Detection system.
 
-## 📁 Dataset
-
-- **Source**: [Kaggle Dataset](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset)
+### 📦 Dataset
+- **Source**: [New Plant Diseases Dataset](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset)
+- **Images**: 87,000+ images
 - **Classes**: 38 (including healthy and diseased leaves)
-- **Images**: 87,000+ images across different plant types and diseases
-- **Categories**: Apple, Tomato, Potato, Corn, Grape, and more
-
----
-
-## 🧠 Model Summary
-
-The CNN-based model is built using TensorFlow/Keras and trained to classify input leaf images into one of the 38 categories. 
-It uses techniques such as data augmentation, dropout, and early stopping to improve performance and reduce overfitting.
+- **Loading Method**: `image_dataset_from_directory` (with train/validation split)
 
 ## Model Live Demo
 https://mainpy-yvip3qmpcr5atacyrzakxp.streamlit.app/
 
+---
 
-🔬 Train_plant_disease.ipynb Analysis Summary
-📊 Final Training Cell Output:
+### 🧠 Model Architecture
+
+The model is a deep **Convolutional Neural Network (CNN)** built using the Keras `Sequential` API.
+
+**Model Layers:**
+```text
+Input: 128x128x3 RGB images
+↓ Conv2D(32, 3x3) + ReLU
+↓ Conv2D(32, 3x3) + ReLU
+↓ MaxPooling2D(2x2)
+
+↓ Conv2D(64, 3x3) + ReLU
+↓ Conv2D(64, 3x3) + ReLU
+↓ MaxPooling2D(2x2)
+
+↓ Conv2D(128, 3x3) + ReLU
+↓ Conv2D(128, 3x3) + ReLU
+↓ MaxPooling2D(2x2)
+
+↓ Conv2D(256, 3x3) + ReLU
+↓ Conv2D(256, 3x3) + ReLU
+↓ MaxPooling2D(2x2)
+
+↓ Conv2D(512, 3x3) + ReLU
+↓ Conv2D(512, 3x3) + ReLU
+↓ MaxPooling2D(2x2)
+
+↓ Dropout(0.25)
+↓ Flatten
+↓ Dense(1500) + ReLU
+↓ Dropout(0.4)
+↓ Dense(38) + Softmax (output layer)
+⚙️ Compilation & Training Details
+Loss Function: categorical_crossentropy
+
+Optimizer: Adam with learning rate 0.0001
+
+Metrics: accuracy
+
+Epochs: 10
+
+Batch Size: 32
+
+Image Size: 128x128
+
+📈 Training Performance
+The model was trained for 10 epochs, and the training/validation metrics are:
+
+✅ Training Accuracy: ~98.84%
+
+✅ Validation Accuracy: ~98.43%
+
+📉 Both training and validation loss decreased steadily.
+
+The close match between training and validation metrics indicates that the model is well-generalized and not overfitting.
+
+🧪 Evaluation Metrics
+The model was evaluated on a validation/test set using the following metrics:
+
+Classification Report: Includes precision, recall, and F1-score for each of the 38 classes.
+
+Confusion Matrix: Plotted using Seaborn's heatmap.
+
+Example Visualization:
+
 python
 Copy
 Edit
-model.fit(train_set, validation_data=val_set, epochs=10)
-Output:
+plt.figure(figsize=(40,40))
+sns.heatmap(cm, annot=True, annot_kws={'size':10})
+🧪 Testing Dataset
+Loaded using image_dataset_from_directory (no shuffling)
 
-Shows training progress for 10 epochs.
+Predictions generated using model.predict()
 
-Metrics Observed:
+Class labels recovered with argmax
 
-Training and validation accuracy increases steadily.
+Compared with true labels using:
 
-Final Epoch:
+classification_report
 
-Training Accuracy: ~98.84%
+confusion_matrix
 
-Validation Accuracy: ~98.43%
+📁 Output Files
+trained_model.keras: Final trained model
 
-Loss decreases across epochs, showing successful convergence.
+training_hist.json: Accuracy/loss history over epochs
 
-✅ Conclusion:
+✅ Model Highlights
+Deep CNN with multiple convolution layers for feature extraction
 
-Your model is well-trained and exhibits high accuracy.
+Achieved high accuracy with minimal overfitting
 
-There's no sign of overfitting; validation accuracy tracks closely with training accuracy.
+Used Dropout for regularization
+
+Comprehensive evaluation with visualizations
+
+Excellent generalization capability
+
