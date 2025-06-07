@@ -1,3 +1,9 @@
+## PROJECT TEAM:
+FIZA AAFREEN
+NIKUNJ DUBEY
+
+
+
 ## 🔍 Model Training & Analysis
 
 This section provides a detailed breakdown of the training process, model architecture, and evaluation for the Plant Disease Detection system.
